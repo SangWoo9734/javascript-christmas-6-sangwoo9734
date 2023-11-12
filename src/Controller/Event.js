@@ -5,7 +5,7 @@ import InputView from '../View/InputView.js';
 import OutputView from '../View/OutputView.js';
 
 class Event {
-	async getUserVisitDate() {
+	static async #getUserVisitDate() {
 		const userInput = await InputView.getUserInput(
 			SYSTEM_MESSAGE.askDate,
 			VarificatorManager.checkVisitDate,
@@ -14,12 +14,24 @@ class Event {
 		return userInput;
 	}
 
+	static async #getUserOrder() {
+		const userOrder = await InputView.getUserInput(
+			SYSTEM_MESSAGE.askOrder,
+			VarificatorManager.checkOrder,
+		);
+
+		return userOrder;
+	}
+
 	async play() {
 		// 환영 인사 출력
 		OutputView.printMessage(SYSTEM_MESSAGE.helloToCustomer);
 
 		// 손님 방문 날짜 입력
-		await handleException(() => this.getUserVisitDate());
+		const visitDate = await handleException(Event.#getUserVisitDate);
+
+		// 손님 주문 메뉴 및 수량 입력
+		const customerOrder = await handleException(Event.#getUserOrder);
 	}
 }
 
