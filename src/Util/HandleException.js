@@ -1,18 +1,19 @@
 import OutputView from '../View/OutputView.js';
 
 const handleException = async (action) => {
+	let result;
 	let success = false;
 
 	do {
 		try {
-			const result = await action();
-			success = true;
+			result = await action();
 
-			return result;
+			success = true;
 		} catch (error) {
 			OutputView.printMessage(error.message);
 		}
 	} while (!success);
+	return result;
 };
 
 export default handleException;
