@@ -1,5 +1,15 @@
+import Event from './Controller/Event.js';
+
 class App {
-  async run() {}
+	#event;
+
+	constructor() {
+		this.#event = new Event();
+	}
+
+	async run() {
+		await this.#event.play();
+	}
 }
 
 export default App;
