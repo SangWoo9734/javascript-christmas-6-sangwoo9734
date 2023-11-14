@@ -1,3 +1,4 @@
+import MENU from '../Constants/Menu.js';
 import MenuBoard from '../Model/MenuBoard.js';
 
 const Varificator = {
@@ -28,8 +29,8 @@ const Varificator = {
 	},
 
 	isMenusNotInMenuBoard(orders) {
-		const menuBoard = new MenuBoard();
-		const menuList = menuBoard.getAllMenuList();
+		const menuBoard = new MenuBoard(MENU);
+		const menuList = menuBoard.allMenuList;
 
 		return orders.some((order) => menuList.findIndex((menu) => order[0] === menu.name) === -1);
 	},
