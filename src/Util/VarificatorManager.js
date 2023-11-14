@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../Constants/Message.js';
-import EVENT_CONSTANTS from '../Constants/Event.js';
+import { EVENT_CONSTANTS } from '../Constants/Event.js';
 import createErrorMessage from './HandleErrorMessage.js';
 import Varificator from './Varificator.js';
 import Order from '../Model/Order.js';
