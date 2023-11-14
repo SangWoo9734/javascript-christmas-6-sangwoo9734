@@ -130,7 +130,7 @@ class Benefit {
 
 	get totalBenefits() {
 		return Object.values(this.#benefitPrice).reduce(
-			(accumulate, current) => accumulate + current,
+			(accumulator, current) => accumulator + current,
 			0,
 		);
 	}
