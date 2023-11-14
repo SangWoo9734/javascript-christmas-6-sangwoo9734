@@ -20,7 +20,7 @@ const SYSTEM_MESSAGE = Object.freeze({
 	beforeDiscountTitle: '<할인 전 총주문 금액>',
 	giftTitle: '<증정 메뉴>',
 	benefitTitle: '<혜택 내역>',
-	totalBenefitTitle: '<총혜택 내역>',
+	totalBenefitTitle: '<총혜택 금액>',
 	afterDiscountTitle: '<할인 후 예상 결제 금액>',
 	eventBedgeTitle: `<${EVENT_CONSTANTS.month}월 이벤트 배지>`,
 });
