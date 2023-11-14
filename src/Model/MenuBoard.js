@@ -1,13 +1,11 @@
-import MENU from '../Constants/Menu.js';
-
 class MenuBoard {
 	#menu;
 
-	constructor() {
-		this.#menu = MENU;
+	constructor(menu) {
+		this.#menu = menu;
 	}
 
-	getAllMenuList() {
+	get allMenuList() {
 		let menuList = [];
 
 		Object.keys(this.#menu).forEach((category) => {
@@ -15,6 +13,14 @@ class MenuBoard {
 		});
 
 		return menuList;
+	}
+
+	getNameInCategory(category) {
+		return this.#menu[category].menu.map((menu) => menu.name);
+	}
+
+	searchMenu(name) {
+		return this.allMenuList.find((menu) => menu.name === name);
 	}
 }
 
