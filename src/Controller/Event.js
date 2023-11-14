@@ -9,6 +9,7 @@ import MenuBoard from '../Model/MenuBoard.js';
 import Calendar from '../Model/Calendar.js';
 import Benefit from './Benefit.js';
 import Bedge from '../Model/Bedge.js';
+import StringUtil from '../Util/StringUtil.js';
 
 class Event {
 	#calendar;
@@ -47,6 +48,79 @@ class Event {
 		this.#bedge = new Bedge(this.#benefits.totalBenefits);
 	}
 
+	#showOrderList() {
+		OutputView.printMessage(SYSTEM_MESSAGE.orderMenuTitle);
+		this.#order.order.forEach((order) => {
+			OutputView.printMessage(SYSTEM_MESSAGE.menuAndCount(order.name, order.count));
+		});
+
+		OutputView.printMessage(SYSTEM_MESSAGE.blank);
+	}
+
+	#showTotalCostBeforeDiscount() {
+		OutputView.printMessage(SYSTEM_MESSAGE.beforeDiscountTitle);
+
+		const totalPrice = StringUtil.formatNumber(this.#order.totalPrice);
+		OutputView.printMessage(`${totalPrice}원`);
+
+		OutputView.printMessage(SYSTEM_MESSAGE.blank);
+	}
+
+	#showGiftBenefit() {
+		OutputView.printMessage(SYSTEM_MESSAGE.giftTitle);
+
+		this.#benefits.printGiftList();
+
+		OutputView.printMessage(SYSTEM_MESSAGE.blank);
+	}
+
+	#showBenefitList() {
+		OutputView.printMessage(SYSTEM_MESSAGE.benefitTitle);
+
+		this.#benefits.printAllBenefits();
+
+		OutputView.printMessage(SYSTEM_MESSAGE.blank);
+	}
+
+	#showTotalBenefit() {
+		OutputView.printMessage(SYSTEM_MESSAGE.totalBenefitTitle);
+
+		this.#benefits.showTotalBenefits();
+
+		OutputView.printMessage(SYSTEM_MESSAGE.blank);
+	}
+
+	#showTotalCostAfterDiscount() {
+		OutputView.printMessage(SYSTEM_MESSAGE.afterDiscountTitle);
+
+		const totalOrderPrice = this.#order.totalPrice;
+		const totalBenefit = this.#benefits.totalBenefits;
+
+		const totalPriceAfterDiscount = totalOrderPrice - totalBenefit;
+		const formattedNumber = StringUtil.formatNumber(totalPriceAfterDiscount);
+
+		OutputView.printMessage(`${formattedNumber}원`);
+
+		OutputView.printMessage(SYSTEM_MESSAGE.blank);
+	}
+
+	#showEventBedge() {
+		OutputView.printMessage(SYSTEM_MESSAGE.eventBedgeTitle);
+
+		OutputView.printMessage(this.#bedge.bedge);
+	}
+
+	#showEventBenefit() {
+		OutputView.printMessage(SYSTEM_MESSAGE.benefitPreview(this.#calendar.visitDate));
+		this.#showOrderList();
+		this.#showTotalCostBeforeDiscount();
+		this.#showGiftBenefit();
+		this.#showBenefitList();
+		this.#showTotalBenefit();
+		this.#showTotalCostAfterDiscount();
+		this.#showEventBedge();
+	}
+
 	async play() {
 		OutputView.printMessage(SYSTEM_MESSAGE.helloToCustomer);
 
@@ -54,6 +128,8 @@ class Event {
 		const customerOrder = await handleException(Event.#getUserOrder);
 
 		this.#initalServiceInstance(visitDate, customerOrder);
+
+		this.#showEventBenefit();
 	}
 }
 
