@@ -36,6 +36,7 @@ const EVENT_CONSTANTS = Object.freeze({
 	weekendSaleCost: 2023,
 	specialSaleCost: 1000,
 	gift: '샴페인',
+	maxMenuCount: 20,
 });
 
 export { EVENT_CONSTANTS, EVENT_BEDGE };

@@ -1,3 +1,4 @@
+import { EVENT_CONSTANTS } from '../Constants/Event.js';
 import MENU from '../Constants/Menu.js';
 import MenuBoard from '../Model/MenuBoard.js';
 
@@ -45,6 +46,15 @@ const Varificator = {
 		const menuNames = orders.map((menu) => menu[0]);
 
 		return new Set(menuNames).size !== menuNames.length;
+	},
+
+	isOverMaxMenuCount(orders) {
+		const menuCount = orders.reduce(
+			(accumulator, currentValue) => accumulator + Number(currentValue[1]),
+			0,
+		);
+
+		return menuCount > EVENT_CONSTANTS.maxMenuCount;
 	},
 };
 

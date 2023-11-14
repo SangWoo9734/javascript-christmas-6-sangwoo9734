@@ -18,13 +18,12 @@ class VarificatorManager {
 		if (Varificator.isInvalidOrderformat(order)) {
 			throw new Error(createErrorMessage(ERROR_MESSAGE.invalidOrder));
 		}
-
 		const formattedOrder = Order.orderFormatter(order);
-
 		if (
 			Varificator.isMenusNotInMenuBoard(formattedOrder) ||
 			Varificator.isInvalidMenuCount(formattedOrder) ||
-			Varificator.isDuplicatedMenu(formattedOrder)
+			Varificator.isDuplicatedMenu(formattedOrder) ||
+			Varificator.isOverMaxMenuCount(formattedOrder)
 		) {
 			throw new Error(createErrorMessage(ERROR_MESSAGE.invalidOrder));
 		}
