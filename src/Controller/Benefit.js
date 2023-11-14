@@ -22,7 +22,7 @@ class Benefit {
 		this.#benefits = calendar.dayBenefit;
 		this.#menuBoard = new MenuBoard(MENU);
 
-		this.#checkBenefits();
+		this.#benefitPrice = this.#checkBenefits();
 	}
 
 	#cristmasBenefit() {
@@ -80,12 +80,14 @@ class Benefit {
 	#giftBenefit() {
 		const totalOrderPrice = this.#order.totalPrice;
 		const giftPrice = this.#menuBoard.searchMenu(EVENT_CONSTANTS.gift).price;
-		return totalOrderPrice > 120000 ? giftPrice : 0;
+		return totalOrderPrice > EVENT_CONSTANTS.orderCostForGift ? giftPrice : 0;
 	}
 
 	printGiftList() {
 		const message =
-			this.#benefitPrice.gift > 0 ? `${EVENT_CONSTANTS.gift} 1개` : SYSTEM_MESSAGE.none;
+			this.#benefitPrice.gift > 0
+				? `${EVENT_CONSTANTS.gift} ${EVENT_CONSTANTS.giftQuantity}개`
+				: SYSTEM_MESSAGE.none;
 		OutputView.printMessage(message);
 	}
 
@@ -97,17 +99,19 @@ class Benefit {
 	}
 
 	#checkBenefits() {
-		const cristmasBenefit = this.#cristmasBenefit();
-		const weekBenefit = this.#weekBenefit();
-		const specialBenefit = this.#specialBenefit();
-		const giftBenefit = this.#giftBenefit();
-
-		this.#benefitPrice = {
-			cristmas: cristmasBenefit,
-			week: weekBenefit,
-			special: specialBenefit,
-			gift: giftBenefit,
-		};
+		return this.#order.totalPrice >= EVENT_CONSTANTS.minOrderCost
+			? {
+					cristmas: this.#cristmasBenefit(),
+					week: this.#weekBenefit(),
+					special: this.#specialBenefit(),
+					gift: this.#giftBenefit(),
+			  }
+			: {
+					cristmas: 0,
+					week: 0,
+					special: 0,
+					gift: 0,
+			  };
 	}
 
 	printAllBenefits() {
