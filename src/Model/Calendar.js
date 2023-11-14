@@ -33,7 +33,7 @@ class Calendar {
 	get dayBenefit() {
 		return {
 			isCristmasBenefit: this.#isCristmasPeriod(),
-			isWeedayBenefit: this.#isWeekday(),
+			isWeekdayBenefit: this.#isWeekday(),
 			isSpecialBenefit: this.#isSpecialDay(),
 		};
 	}

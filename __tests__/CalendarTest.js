@@ -21,7 +21,7 @@ describe('Calendar', () => {
 		// then
 		expect(calendar.dayBenefit).toEqual({
 			isCristmasBenefit: true,
-			isWeedayBenefit: true,
+			isWeekdayBenefit: true,
 			isSpecialBenefit: true,
 		});
 	});
