@@ -1,11 +1,8 @@
 class Order {
 	#order;
 
-	#menuBoard;
-
 	constructor(order, menuBoard) {
 		const orders = Order.orderFormatter(order);
-		this.#menuBoard = menuBoard;
 		this.#order = Order.#getOrderDataWithPrice(orders, menuBoard);
 	}
 
@@ -33,9 +30,13 @@ class Order {
 	}
 
 	static #getOrderDataWithPrice(orders, menuBoard) {
-		const allMenu = menuBoard.getAllMenuList();
+		const allMenu = menuBoard.allMenuList;
 
 		return this.#orderWithPrice(orders, allMenu);
+	}
+
+	searchMenuInOrder(menuName) {
+		return this.#order.find((order) => order.name === menuName);
 	}
 
 	get totalPrice() {
