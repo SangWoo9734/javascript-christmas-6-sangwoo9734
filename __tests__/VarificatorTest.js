@@ -1,4 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
 import Varificator from '../src/Util/Varificator';
 
 describe('Varificator', () => {
