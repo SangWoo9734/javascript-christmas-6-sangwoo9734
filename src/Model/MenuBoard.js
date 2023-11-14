@@ -15,7 +15,7 @@ class MenuBoard {
 		return menuList;
 	}
 
-	getNameInCategory(category) {
+	getAllNameInCategory(category) {
 		return this.#menu[category].menu.map((menu) => menu.name);
 	}
 
