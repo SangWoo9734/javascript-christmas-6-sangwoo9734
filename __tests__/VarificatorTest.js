@@ -1,3 +1,4 @@
+import { Console } from '@woowacourse/mission-utils';
 import Varificator from '../src/Util/Varificator';
 
 describe('Varificator', () => {
@@ -124,6 +125,7 @@ describe('Varificator', () => {
 
 	describe('isInvalidMenuCount => 주문한 메뉴의 개수가 유효한 개수인지 판단한다.', () => {
 		test.each([
+			// given
 			[
 				'레드와인-1,시저샐러드-11',
 				[
@@ -140,10 +142,12 @@ describe('Varificator', () => {
 				],
 			],
 		])('주문 "%s"는 메뉴중 메뉴의 개수가 유효하다..', (_, order) => {
+			// when, then
 			expect(Varificator.isInvalidMenuCount(order)).toBe(false);
 		});
 
 		test.each([
+			// given
 			['제로콜라-ㅁ', [['제로콜라', 'ㅁ']]],
 			[
 				'레드와인-1,시저샐러드-1.1',
@@ -161,12 +165,14 @@ describe('Varificator', () => {
 				],
 			],
 		])('주문 "%s"는 메뉴중 메뉴의 개수가 유효하지 않다.', (_, order) => {
+			// when, then
 			expect(Varificator.isInvalidMenuCount(order)).toBe(true);
 		});
 	});
 
 	describe('isDuplicatedMenu => 주문 중 중복된 메뉴가 있는지 판단한다.', () => {
 		test.each([
+			// given
 			[
 				'레드와인-1,시저샐러드-1',
 				[
@@ -183,10 +189,12 @@ describe('Varificator', () => {
 				],
 			],
 		])('주문 "%s"는 메뉴중 중복된 메뉴가 없다.', (_, order) => {
+			// when, then
 			expect(Varificator.isDuplicatedMenu(order)).toBe(false);
 		});
 
 		test.each([
+			// given
 			[
 				'레드와인-1,레드와인-4',
 				[
@@ -203,7 +211,65 @@ describe('Varificator', () => {
 				],
 			],
 		])('주문 "%s"는 메뉴중 메뉴의 개수가 유효하지 않다.', (_, order) => {
+			// when, then
 			expect(Varificator.isDuplicatedMenu(order)).toBe(true);
+		});
+	});
+
+	describe('isOverMaxMenuCount => 주문한 메뉴 총 개수가 최대 메뉴 개수를 초과하는지 확인한다.', () => {
+		test.each([
+			// given
+			[
+				'시저샐러드-1,티본스테이크-1,크리스마스파스타-1,제로콜라-3,아이스크림-1',
+				[
+					['시저샐러드', '1'],
+					['티본스테이크', '1'],
+					['크리스마스파스타', '1'],
+					['제로콜라', '3'],
+					['아이스크림', '1'],
+				],
+			],
+			[
+				'타파스-2, 바비큐립-4, 샴페인-14',
+				[
+					['타파스', '2'],
+					['바비큐립', '4'],
+					['샴페인', '14'],
+				],
+			],
+		])('%s는 최대 메뉴 개수를 초과하지 않는다.', (_, value) => {
+			// when, then
+			expect(Varificator.isOverMaxMenuCount(value)).toBe(false);
+		});
+
+		test.each([
+			// given
+			[
+				'시저샐러드-1,티본스테이크-1,크리스마스파스타-1,제로콜라-3,아이스크림-16',
+				[
+					['시저샐러드', '2'],
+					['티본스테이크', '4'],
+					['크리스마스파스타', '1'],
+					['제로콜라', '1'],
+					['아이스크림', '16'],
+				],
+			],
+			[
+				'시저샐러드-2,티본스테이크-4,크리스마스파스타-1,타파스-2,바비큐립-4,샴페인-1,아이스크림-1,초코케이크-2',
+				[
+					['시저샐러드', '2'],
+					['티본스테이크', '4'],
+					['크리스마스파스타', '1'],
+					['타파스', '2'],
+					['바비큐립', '4'],
+					['샴페인', '1'],
+					['아이스크림', '5'],
+					['초코케이크', '2'],
+				],
+			],
+		])('%s는 최대 메뉴 개수를 초과한다.', (_, value) => {
+			// when, then
+			expect(Varificator.isOverMaxMenuCount(value)).toBe(true);
 		});
 	});
 });
