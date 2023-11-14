@@ -84,7 +84,7 @@ describe('MenuBoard', () => {
 		const result = ['양송이수프', '타파스', '시저샐러드'];
 
 		// then
-		expect(menuBoard.getNameInCategory(category)).toEqual(result);
+		expect(menuBoard.getAllNameInCategory(category)).toEqual(result);
 	});
 
 	test('메뉴 이름을 검색할 수 있다.', () => {
