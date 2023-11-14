@@ -61,4 +61,22 @@ describe('Order', () => {
 		// then
 		expect(order.totalPrice).toBe(result);
 	});
+
+	test('메뉴 이름을 통해 주문 사항을 찾을 수 있다.', () => {
+		// given
+		const userOrder = '티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1';
+		const menuBoard = new MenuBoard(MENU);
+		const targetMenu = '초코케이크';
+		const result = {
+			name: '초코케이크',
+			count: 2,
+			totalPrice: 30000,
+		};
+
+		// when
+		const order = new Order(userOrder, menuBoard);
+
+		// then
+		expect(order.searchMenuInOrder(targetMenu)).toEqual(result);
+	});
 });
