@@ -23,7 +23,8 @@ class VarificatorManager {
 			Varificator.isMenusNotInMenuBoard(formattedOrder) ||
 			Varificator.isInvalidMenuCount(formattedOrder) ||
 			Varificator.isDuplicatedMenu(formattedOrder) ||
-			Varificator.isOverMaxMenuCount(formattedOrder)
+			Varificator.isOverMaxMenuCount(formattedOrder) ||
+			Varificator.isMenuOnlyBeverage(formattedOrder)
 		) {
 			throw new Error(createErrorMessage(ERROR_MESSAGE.invalidOrder));
 		}

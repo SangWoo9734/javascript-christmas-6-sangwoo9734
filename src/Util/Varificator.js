@@ -56,6 +56,13 @@ const Varificator = {
 
 		return menuCount > EVENT_CONSTANTS.maxMenuCount;
 	},
+
+	isMenuOnlyBeverage(orders) {
+		const menuBoard = new MenuBoard(MENU);
+		const beverageMenus = menuBoard.getAllNameInCategory('beverage');
+
+		return orders.every((menu) => beverageMenus.includes(menu[0]));
+	},
 };
 
 export default Varificator;
