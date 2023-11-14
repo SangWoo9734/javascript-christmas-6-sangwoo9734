@@ -272,4 +272,52 @@ describe('Varificator', () => {
 			expect(Varificator.isOverMaxMenuCount(value)).toBe(true);
 		});
 	});
+
+	describe('isMenuOnlyBeverage => 음료만 주문했는지 확인한다.', () => {
+		test.each([
+			// given
+			[
+				'시저샐러드-1,티본스테이크-1,크리스마스파스타-1',
+				[
+					['시저샐러드', '1'],
+					['티본스테이크', '1'],
+					['제로콜라', '1'],
+				],
+			],
+			[
+				'타파스-2,바비큐립-4,샴페인-1',
+				[
+					['타파스', '2'],
+					['바비큐립', '4'],
+					['샴페인', '1'],
+				],
+			],
+		])('%s는 음료만 시키지 않았다.', (_, value) => {
+			// when, then
+			expect(Varificator.isMenuOnlyBeverage(value)).toBe(false);
+		});
+
+		test.each([
+			// given
+			['제로콜라-1', [['제로콜라', '1']]],
+			[
+				'제로콜라-1,샴페인-1',
+				[
+					['제로콜라', '1'],
+					['샴페인', '1'],
+				],
+			],
+			[
+				'제로콜라-1,레드와인-1,샴페인-1',
+				[
+					['제로콜라', '1'],
+					['레드와인', '1'],
+					['샴페인', '1'],
+				],
+			],
+		])('%s는 음료만 주문했다.', (_, value) => {
+			// when, then
+			expect(Varificator.isMenuOnlyBeverage(value)).toBe(true);
+		});
+	});
 });

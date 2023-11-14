@@ -29,7 +29,7 @@ describe('VarificatorManager 테스트', () => {
 		test.each([
 			['티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1'],
 			['해산물파스타-2,레드와인-1,초코케이크-1'],
-			['샴페인-1'],
+			['크리스마스파스타-2,샴페인-1'],
 		])('양식에 맞는 주문( "%s" )이 입력 되었을때 에러를 표시하지 않습니다.', (order) => {
 			//when, then
 			expect(() => VarificatorManager.checkOrder(order)).not.toThrow();
@@ -43,6 +43,7 @@ describe('VarificatorManager 테스트', () => {
 			['해산물파스타=2,레드와인=1,초코케이크=1'],
 			['해산물파스타2,레드와인1,초코케이크1'],
 			['티본스테이크-11,바비큐립-11,초코케이크-12,제로콜라-11'],
+			['제로콜라-1,샴페인-1'],
 		])('양식에 맞지 않는 주문( "%s" )이 입력 되었을때 에러를 표시합니다.', (order) => {
 			//when, then
 			expect(() => VarificatorManager.checkOrder(order)).toThrow(ERROR_MESSAGE.prefix);
