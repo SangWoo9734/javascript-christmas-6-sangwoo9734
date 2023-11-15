@@ -1,4 +1,4 @@
-import { SYSTEM_MESSAGE } from '../Constants/Message.js';
+import { SYSTEM_MESSAGE, WARNING_MESSAGE } from '../Constants/Message.js';
 import MENU from '../Constants/Menu.js';
 import Order from '../Model/Order.js';
 import handleException from '../Util/HandleException.js';
@@ -22,6 +22,10 @@ class Event {
 
 	#bedge;
 
+	constructor() {
+		this.#menuBoard = new MenuBoard(MENU);
+	}
+
 	static async #getUserVisitDate() {
 		const userInput = await InputView.getUserInput(
 			SYSTEM_MESSAGE.askDate,
@@ -29,6 +33,43 @@ class Event {
 		);
 
 		return userInput;
+	}
+
+	static #printMenu(menuData) {
+		const { korTitle, menu } = menuData;
+
+		OutputView.printMessage(`[${korTitle}]\n`);
+
+		menu.forEach((menuInfo) => {
+			const formattedMenuPrice = StringUtil.formatNumber(menuInfo.price);
+
+			OutputView.printMessage(`- ${menuInfo.name} : ${formattedMenuPrice}원`);
+		});
+
+		OutputView.printMessage(SYSTEM_MESSAGE.blank);
+	}
+
+	#printAllMenu() {
+		OutputView.printMessage(SYSTEM_MESSAGE.eventMenuTitle);
+
+		Object.values(this.#menuBoard.menu).forEach((category) => {
+			Event.#printMenu(category);
+		});
+	}
+
+	static #printOrderWarning() {
+		OutputView.printMessage(SYSTEM_MESSAGE.evnetWarning);
+
+		OutputView.printMessage(WARNING_MESSAGE.minOrderCost);
+		OutputView.printMessage(WARNING_MESSAGE.onlyBeverage);
+		OutputView.printMessage(WARNING_MESSAGE.maxMenuCount);
+	}
+
+	#printInfoForOrder() {
+		OutputView.printMessage('--------------------------------');
+		this.#printAllMenu();
+		Event.#printOrderWarning();
+		OutputView.printMessage('--------------------------------');
 	}
 
 	static async #getUserOrder() {
@@ -42,7 +83,6 @@ class Event {
 
 	#initalServiceInstance(visitDate, customerOrder) {
 		this.#calendar = new Calendar(visitDate);
-		this.#menuBoard = new MenuBoard(MENU);
 		this.#order = new Order(customerOrder, this.#menuBoard);
 		this.#benefits = new Benefit(this.#order, this.#calendar);
 		this.#bedge = new Bedge(this.#benefits.totalBenefits);
@@ -125,6 +165,9 @@ class Event {
 		OutputView.printMessage(SYSTEM_MESSAGE.helloToCustomer);
 
 		const visitDate = await handleException(Event.#getUserVisitDate);
+
+		this.#printInfoForOrder();
+
 		const customerOrder = await handleException(Event.#getUserOrder);
 
 		this.#initalServiceInstance(visitDate, customerOrder);

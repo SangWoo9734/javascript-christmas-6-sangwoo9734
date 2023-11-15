@@ -16,6 +16,8 @@ const SYSTEM_MESSAGE = Object.freeze({
 	menuAndCount: (menu, count) => `${menu} ${count}개`,
 	benefitPreview: (date) =>
 		`${EVENT_CONSTANTS.month}월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`,
+	eventMenuTitle: `<${EVENT_CONSTANTS.month}월 이벤트 기간 메뉴>`,
+	evnetWarning: '** 이벤트 안내 사항 **',
 	orderMenuTitle: '<주문 메뉴>',
 	beforeDiscountTitle: '<할인 전 총주문 금액>',
 	giftTitle: '<증정 메뉴>',
@@ -25,4 +27,10 @@ const SYSTEM_MESSAGE = Object.freeze({
 	eventBedgeTitle: `<${EVENT_CONSTANTS.month}월 이벤트 배지>`,
 });
 
-export { ERROR_MESSAGE, SYSTEM_MESSAGE };
+const WARNING_MESSAGE = Object.freeze({
+	minOrderCost: `- 총주문 금액 ${EVENT_CONSTANTS.minOrderCost}원 이상부터 이벤트가 적용됩니다.`,
+	onlyBeverage: '- 음료만 주문 시, 주문할 수 없습니다.',
+	maxMenuCount: `- 메뉴는 한 번에 최대 ${EVENT_CONSTANTS.maxMenuCount}개까지만 주문할 수 있습니다.\n(e.g. 시저샐러드-1, 티본스테이크-1, 크리스마스파스타-1, 제로콜라-3, 아이스크림-1의 총개수는 7개)`,
+});
+
+export { ERROR_MESSAGE, SYSTEM_MESSAGE, WARNING_MESSAGE };
