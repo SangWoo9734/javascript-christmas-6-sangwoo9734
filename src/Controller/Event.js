@@ -38,7 +38,7 @@ class Event {
 	static #printMenu(menuData) {
 		const { korTitle, menu } = menuData;
 
-		OutputView.printMessage(`[${korTitle}]\n`);
+		OutputView.printMessage(`[${korTitle}]`);
 
 		menu.forEach((menuInfo) => {
 			const formattedMenuPrice = StringUtil.formatNumber(menuInfo.price);
@@ -66,10 +66,10 @@ class Event {
 	}
 
 	#printInfoForOrder() {
-		OutputView.printMessage('--------------------------------');
+		OutputView.printMessage('--------------------------------------------');
 		this.#printAllMenu();
 		Event.#printOrderWarning();
-		OutputView.printMessage('--------------------------------');
+		OutputView.printMessage('--------------------------------------------');
 	}
 
 	static async #getUserOrder() {
@@ -88,7 +88,7 @@ class Event {
 		this.#bedge = new Bedge(this.#benefits.totalBenefits);
 	}
 
-	#showOrderList() {
+	#printOrderList() {
 		OutputView.printMessage(SYSTEM_MESSAGE.orderMenuTitle);
 		this.#order.order.forEach((order) => {
 			OutputView.printMessage(SYSTEM_MESSAGE.menuAndCount(order.name, order.count));
@@ -97,7 +97,7 @@ class Event {
 		OutputView.printMessage(SYSTEM_MESSAGE.blank);
 	}
 
-	#showTotalCostBeforeDiscount() {
+	#printTotalCostBeforeDiscount() {
 		OutputView.printMessage(SYSTEM_MESSAGE.beforeDiscountTitle);
 
 		const totalPrice = StringUtil.formatNumber(this.#order.totalPrice);
@@ -106,7 +106,7 @@ class Event {
 		OutputView.printMessage(SYSTEM_MESSAGE.blank);
 	}
 
-	#showGiftBenefit() {
+	#printGiftBenefit() {
 		OutputView.printMessage(SYSTEM_MESSAGE.giftTitle);
 
 		this.#benefits.printGiftList();
@@ -114,7 +114,7 @@ class Event {
 		OutputView.printMessage(SYSTEM_MESSAGE.blank);
 	}
 
-	#showBenefitList() {
+	#printBenefitList() {
 		OutputView.printMessage(SYSTEM_MESSAGE.benefitTitle);
 
 		this.#benefits.printAllBenefits();
@@ -122,7 +122,7 @@ class Event {
 		OutputView.printMessage(SYSTEM_MESSAGE.blank);
 	}
 
-	#showTotalBenefit() {
+	#printTotalBenefit() {
 		OutputView.printMessage(SYSTEM_MESSAGE.totalBenefitTitle);
 
 		this.#benefits.showTotalBenefits();
@@ -130,7 +130,7 @@ class Event {
 		OutputView.printMessage(SYSTEM_MESSAGE.blank);
 	}
 
-	#showTotalCostAfterDiscount() {
+	#printTotalCostAfterDiscount() {
 		OutputView.printMessage(SYSTEM_MESSAGE.afterDiscountTitle);
 
 		const totalOrderPrice = this.#order.totalPrice;
@@ -144,21 +144,21 @@ class Event {
 		OutputView.printMessage(SYSTEM_MESSAGE.blank);
 	}
 
-	#showEventBedge() {
+	#printEventBedge() {
 		OutputView.printMessage(SYSTEM_MESSAGE.eventBedgeTitle);
 
 		OutputView.printMessage(this.#bedge.bedge);
 	}
 
-	#showEventBenefit() {
+	#printEventBenefit() {
 		OutputView.printMessage(SYSTEM_MESSAGE.benefitPreview(this.#calendar.visitDate));
-		this.#showOrderList();
-		this.#showTotalCostBeforeDiscount();
-		this.#showGiftBenefit();
-		this.#showBenefitList();
-		this.#showTotalBenefit();
-		this.#showTotalCostAfterDiscount();
-		this.#showEventBedge();
+		this.#printOrderList();
+		this.#printTotalCostBeforeDiscount();
+		this.#printGiftBenefit();
+		this.#printBenefitList();
+		this.#printTotalBenefit();
+		this.#printTotalCostAfterDiscount();
+		this.#printEventBedge();
 	}
 
 	async play() {
@@ -172,7 +172,7 @@ class Event {
 
 		this.#initalServiceInstance(visitDate, customerOrder);
 
-		this.#showEventBenefit();
+		this.#printEventBenefit();
 	}
 }
 
