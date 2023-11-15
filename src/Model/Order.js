@@ -8,7 +8,7 @@ class Order {
 
 	static orderFormatter(order) {
 		const splittedOrders = order.split(',');
-		const formattedOrder = splittedOrders.map((splittedOrder) => splittedOrder.split('-'));
+		const formattedOrder = splittedOrders.map((splittedOrder) => splittedOrder.trim().split('-'));
 
 		return formattedOrder;
 	}
