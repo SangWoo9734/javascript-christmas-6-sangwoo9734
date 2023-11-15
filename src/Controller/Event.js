@@ -58,7 +58,7 @@ class Event {
 	}
 
 	static #printOrderWarning() {
-		OutputView.printMessage(SYSTEM_MESSAGE.evnetWarning);
+		OutputView.printMessage(SYSTEM_MESSAGE.eventWarning);
 
 		OutputView.printMessage(WARNING_MESSAGE.minOrderCost);
 		OutputView.printMessage(WARNING_MESSAGE.onlyBeverage);

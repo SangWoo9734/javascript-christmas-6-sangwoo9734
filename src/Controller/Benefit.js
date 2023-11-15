@@ -38,7 +38,7 @@ class Benefit {
 	#printCristmasBenefitMessage() {
 		if (this.#benefitPrice.cristmas > 0) {
 			const formattedPrice = StringUtil.formatNumber(this.#benefitPrice.cristmas);
-			OutputView.printMessage(`크리스마스 디데이 할인: -${formattedPrice}원`);
+			OutputView.printMessage(SYSTEM_MESSAGE.benefit('크리스마스 디데이', formattedPrice));
 		}
 	}
 
@@ -62,7 +62,8 @@ class Benefit {
 		if (this.#benefitPrice.week > 0) {
 			const formattedPrice = StringUtil.formatNumber(this.#benefitPrice.week);
 			const prefix = this.#benefits.isWeekdayBenefit ? '평일' : '주말';
-			OutputView.printMessage(`${prefix} 할인: -${formattedPrice}원`);
+
+			OutputView.printMessage(SYSTEM_MESSAGE.benefit(prefix, formattedPrice));
 		}
 	}
 
@@ -73,13 +74,15 @@ class Benefit {
 	#printSpecialBenefitMessage() {
 		if (this.#benefitPrice.special > 0) {
 			const formattedPrice = StringUtil.formatNumber(this.#benefitPrice.special);
-			OutputView.printMessage(`특별 할인: -${formattedPrice}원`);
+
+			OutputView.printMessage(SYSTEM_MESSAGE.benefit('특별', formattedPrice));
 		}
 	}
 
 	#giftBenefit() {
 		const totalOrderPrice = this.#order.totalPrice;
 		const giftPrice = this.#menuBoard.searchMenu(EVENT_CONSTANTS.gift).price;
+
 		return totalOrderPrice > EVENT_CONSTANTS.orderCostForGift ? giftPrice : 0;
 	}
 
@@ -88,12 +91,14 @@ class Benefit {
 			this.#benefitPrice.gift > 0
 				? `${EVENT_CONSTANTS.gift} ${EVENT_CONSTANTS.giftQuantity}개`
 				: SYSTEM_MESSAGE.none;
+
 		OutputView.printMessage(message);
 	}
 
 	#printGiftBenefitMessage() {
 		if (this.#benefitPrice.gift > 0) {
 			const formattedPrice = StringUtil.formatNumber(this.#benefitPrice.gift);
+
 			OutputView.printMessage(`증정 이벤트: -${formattedPrice}원`);
 		}
 	}

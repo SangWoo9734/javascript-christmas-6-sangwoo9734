@@ -16,8 +16,9 @@ const SYSTEM_MESSAGE = Object.freeze({
 	menuAndCount: (menu, count) => `${menu} ${count}개`,
 	benefitPreview: (date) =>
 		`${EVENT_CONSTANTS.month}월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`,
+	benefit: (benefitType, benefitCost) => `${benefitType} 할인: -${benefitCost}원`,
 	eventMenuTitle: `<${EVENT_CONSTANTS.month}월 이벤트 기간 메뉴>`,
-	evnetWarning: '** 이벤트 안내 사항 **',
+	eventWarning: '** 이벤트 안내 사항 **',
 	orderMenuTitle: '<주문 메뉴>',
 	beforeDiscountTitle: '<할인 전 총주문 금액>',
 	giftTitle: '<증정 메뉴>',
